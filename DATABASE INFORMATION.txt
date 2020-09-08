@@ -1,0 +1,131 @@
+DATABASE NAME - inventory_db
+collation name - utf8_general_ci
+
+Tables-
+*******************************************************************************
+NAME - users
+NO. OF COLUMNS - 7
+COLUMNS:
+	(NAME : TYPE)
+	id : varchar(40)	: PRIMARY KEY
+	fullname : varchar(40)
+	username : varchar(40)
+	password : varchar(40)
+	phone : varchar(20)
+	email : varchar(40)
+	picture : mediumblob	: NULL - YES : DEFAULT - NULL
+*************************************************************************************
+
+NAME - customer_category
+NO. OF COLUMNS - 2
+COLUMNS -
+	id : varchar(40)	: PRIMARY KEY
+	Name : varchar(50)	: UNIQUE
+*************************************************************************************
+
+NAME - customer_table
+NO. OF COLUMNS - 13
+COLUMNS -
+	id : varchar(40)	: PRIMARY KEY
+	FirstName : varchar(50)
+	LastName : varchar(50)
+	Phone : varchar(20)	: UNIQUE
+	Email : varchar(40)	: NULL
+	OrderCount : int(11)	: DEFAULT - 0
+	TotalOrderAmount : float	: DEFAULT - 0
+	LastOrderDate : date	: NULL : DEFAULT - NULL
+	Balance : float		: DEFAULT - 0
+	AddDate : date		: NULL : DEFAULT - NULL
+	CustomerCategoryID : varchar(40)	:	FOREIGN KEY CONSTRAINT(Database - inventory_db, Table - customer_category , Column - id , ON DELETE - RESTRICT , ON UPDATE - RESTRICT)
+	LastSecondOrderDate : date	: NULL : DEFAULT - NULL
+	GSTIN : varchar(40)	: NULL : DEFAULT - NULL
+
+**************************************************************************************
+
+NAME - order_table
+NO. OF COLUMNS - 7
+COLUMNS -
+	id : varchar(40)	: PRIMARY KEY
+	CustomerID : varchar(40)
+	OrderDate : date
+	OrderAmount : float
+	OverallDiscountPrice : float
+	OverallTax : float	: NULL : DEFAULT - NULL
+	Balance : float		: DEFAULT - 0
+
+**************************************************************************************
+
+NAME - order_detail
+NO. OF COLUMNS - 7
+COLUMNS -
+	id : varchar(40)	: PRIMARY KEY
+	OrderID : varchar(40)	: FOREIGN KEY(Database - inventory_db,Table - order_table , Column - id, ON DELETE - CASCADE , ON UPDATE - RESTRICT)
+	ProductDetailID : varchar(40)
+	UnitPrice : float
+	PurchasedQty : float
+	ProductDiscountPrice : float
+	ProductTax : float	: NULL : DEFAULT - 0
+
+*********************************************************************************************
+
+NAME - product_category
+NO. OF COLUMNS - 2
+COLUMNS -
+	id : varchar(40)	: PRIMARY KEY
+	Name : varchar(50)	: UNIQUE
+
+***********************************************************************************************
+
+NAME - unit_category
+NO. OF COLUMNS - 2
+COLUMNS -
+	id : varchar(40)	: PRIMARY KEY
+	Name : varchar(50)	: UNIQUE
+
+***********************************************************************************************
+
+NAME - product_table
+NO. OF COLUMNS - 8
+COLUMNS -
+	id : varchar(40)	: PRIMARY KEY
+	Name : varchar(50)
+	SubType : varchar(50)	: NULL : DEFAULT - NULL
+	CategoryID : varchar(40)	: FORIEGN KEY(databse - inventory_db, Table - product_category , Column - id , ON DELETE - CASCADE , ON UPDATE - RESTRICT)
+	Description : varchar(100)
+	AddDate : date
+	UnitCategoryID : varchar(40)	: NULL : DEFAULT - NULL	: FORIEGN KEY(databse - inventory_db, Table - unit_category , Column - id , ON DELETE - SET NULL , ON UPDATE - RESTRICT)
+	Picture : mediumblob		: NULL : DEFAULT - NULL
+
+*****************************************************************************************************
+
+NAME - product_detail
+NO. OF COLUMNS - 6
+COLUMNS -
+	id : varchar(40)	: PRIMARY KEY
+	ProductID - varchar(40)	: FORIEGN KEY(databse - inventory_db, Table - product_table , Column - id , ON DELETE - CASCADE , ON UPDATE - RESTRICT)
+	UnitSize : float
+	UnitPrice : float
+	Quantity : float
+	CostPrice : float
+
+*****************************************************************************************************
+
+NAME - transaction_modes
+NO. OF COLUMNS - 2
+COLUMNS -
+	id : varchar(40)	: PRIMARY KEY
+	Name : varchar(50)	: UNIQUE
+
+******************************************************************************************************
+
+NAME - transaction_table
+NO. OF COLUMNS - 7
+COLUMNS -
+	id : varchar(40)	: PRIMARY KEY
+	OrderID : varchar(40)	: FORIEGN KEY(databse - inventory_db, Table - order_table , Column - id , ON DELETE - CASCADE , ON UPDATE - RESTRICT)
+	Amount : float
+	TransactionModeID : varchar(40)
+	Date : date
+	Time : time
+	Direction : boolean	: DEFAULT - TRUE
+******************************************************************************************************
