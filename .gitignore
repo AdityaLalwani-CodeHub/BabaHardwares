@@ -1,3 +1,3 @@
 *.form
-/src/images/company
-/src/images/receipt
+src/images/company.json
+src/images/receipt.json
