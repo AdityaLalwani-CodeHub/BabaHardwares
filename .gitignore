@@ -1,6 +1,7 @@
 *.form
 src/images/company.json
 src/images/receipt.json
+JARS/
 Myfunc.java
 Home_Form.java
 Login_Form.java
