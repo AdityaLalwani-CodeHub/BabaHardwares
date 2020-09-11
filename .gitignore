@@ -1,3 +1,10 @@
 *.form
 src/images/company.json
 src/images/receipt.json
+Myfunc.java
+Home_Form.java
+Login_Form.java
+MANAGE_ORDERS_FORM.java
+MANAGE_CUSTOMERS_FORM.java
+App.java
+Invoice.java
